@@ -1,3 +1,6 @@
-class Question < ApplicationRecord
-  #belongs_to :segment
+class Question < ApplicationRecord\
+
+  resourcify
+
+  belongs_to :segment
 end
