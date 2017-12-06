@@ -1,0 +1,30 @@
+<% content_for(:sidebar) do %>
+  <%= render :partial => "layouts/sidebar" %>
+<% end %>
+
+<div class="row">
+  <div class="col-md-6 ">
+    <p id="notice"><%= notice %></p>
+
+    <h1>Exams</h1>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Actions</th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
+
+      <tbody class="exam-titles">
+
+        <%= render partial: "exam" %>
+      </tbody>
+    </table>
+    <br>
+
+    <%= link_to 'New Exam', new_exam_path %>
+  </div>
+</div>
+<div class="my-class"></div>

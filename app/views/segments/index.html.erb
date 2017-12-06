@@ -1,0 +1,30 @@
+
+<% content_for(:sidebar) do %>
+  <%= render :partial => "layouts/sidebar" %>
+<% end %>
+
+<div class="row">
+  <div class="col-md-6 ">
+    <p id="notice"><%= notice %></p>
+
+    <h1>Manage Segment</h1>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Segment</th>
+          <th>Actions</th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
+
+      <tbody class="segment-names">
+        <%= render partial: "segment" %>
+      </tbody>
+    </table>
+
+    <br>
+
+    <%= link_to 'New Segment', new_segment_path %>
+  </div>
+</div>

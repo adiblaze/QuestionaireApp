@@ -1,0 +1,9 @@
+<% @exams.each do |exam| %>
+  <tr>
+    <td class="exam-title"><%= exam.title %></td>
+    <td><%= link_to 'Show', exam %></td>
+    <td><%= link_to 'Edit', edit_exam_path(exam), data: {id: exam.id}, remote: true, 'data-toggle' => "modal" %>
+    <td><%= link_to 'Destroy', "javascript:void(0);", :class => "deletebutton",data: {id: exam.id } %>
+    </td>
+  </tr>
+<% end %>
