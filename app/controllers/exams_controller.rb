@@ -1,7 +1,7 @@
 class ExamsController < ApplicationController
-
+  load_and_authorize_resource
   before_action :set_exam, only: [:show, :edit]
-  before_action :authenticate_admin!
+  before_action :authenticate_user!, :only => [:show, :index]
 
   # # GET /exams
   # GET /exams.json
@@ -26,7 +26,7 @@ class ExamsController < ApplicationController
   # POST /exams
   # POST /exams.json
   def create
-    @exam = current_admin.exams.new(exam_params)
+    @exam = current_user.exams.new(exam_params)
 
     respond_to do |format|
       if @exam.save
@@ -57,14 +57,11 @@ class ExamsController < ApplicationController
   # DELETE /exams/1
   # DELETE /exams/1.json
   def destroy
-    # flash[:success] = "Photo successfully deleted."
     exam = Exam.find(params[:id])
     exam.destroy
     @exams = Exam.all
     respond_to do |format|
       format.js
-      # format.html { redirect_to exams_url, notice: 'Exam was successfully destroyed.' }
-      # format.json { head :no_content }
     end
   end
 

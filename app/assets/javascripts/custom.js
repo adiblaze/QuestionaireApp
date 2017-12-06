@@ -1,23 +1,15 @@
-// exam partial delete link
+// exam partial delete link and segment partial del link
 $(document).on("click", ".deletebutton", function(url){
   exam_id = $(this).data("id");
+  url = $(this).data("url");
   $.ajax({
       type: "DELETE",
-      url: "/exams/" + exam_id
+      url: url
   });
 });
 
-$(document).on("click", ".close", function(){
+$(document).on("click", ".close, .close-btn", function(){
   $('.modal-backdrop').remove();
 });
 
-
-//Segment
-$(document).on("click", ".deletelink", function(url){
-  segment_id = $(this).data("id");
-  $.ajax({
-      type: "DELETE",
-      url: "/segments/" + segment_id
-  });
-});
 
