@@ -1,6 +1,8 @@
 class SegmentsController < ApplicationController
 
-  before_action :set_segment, only: [:show, :edit, :update]
+  load_and_authorize_resource
+  before_action :set_segment, only: [:show, :edit]
+  before_action :authenticate_user!, :only => [:show, :index]
 
   def index
     @segments = Segment.all
@@ -31,13 +33,13 @@ class SegmentsController < ApplicationController
   end
 
   def update
+    segment = Segment.find(params[:id])
+    @segments = Segment.all
     respond_to do |format|
-      if @segment.update(segment_params)
-        format.html { redirect_to @segment, notice: 'Segment was successfully updated.' }
-        format.json { render :show, status: :ok, location: @segment }
+      if segment.update(segment_params)
+        format.js
       else
         format.html { render :edit }
-        format.json { render json: @segment.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -48,8 +50,6 @@ class SegmentsController < ApplicationController
     @segments = Segment.all # After destroy give update list of all segment
     respond_to do |format|
       format.js
-      # format.html {redirect_to segments_url, notice: 'Segment was successfully destroyed.'}
-      # format.json {head :no_content}
     end
   end
 

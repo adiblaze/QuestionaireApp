@@ -2,7 +2,7 @@
   <tr>
     <td><%= segment.name %></td>
     <td><%= link_to 'Show', segment %></td>
-    <td><%= link_to 'Edit', edit_segment_path(segment) %></td>
-    <td><%= link_to 'Destroy', "javascript:void(0);", :class => "deletelink",data: {id: segment.id } %></td>
+    <td><%= link_to 'Edit', edit_segment_path(segment), data: {id: segment.id}, remote: true, 'data-toggle' => "modal" %></td>
+    <td><%= link_to 'Destroy', "javascript:void(0);", :class => "deletebutton",data: {id: segment.id, url: segment_path(segment) } %></td>
   </tr>
 <% end %>

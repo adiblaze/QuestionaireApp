@@ -1,5 +1,8 @@
 class Segment < ApplicationRecord
-  #belongs_to :exam
-  #belongs_to :admin
-  #has_many :questions
+
+  resourcify
+
+  belongs_to :exam
+
+  has_many :questions
 end

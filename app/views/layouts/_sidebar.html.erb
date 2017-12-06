@@ -1,0 +1,12 @@
+<% if can? :create , Exam%>
+  <div class="col-sm-2 col-md-2 sidebar">
+    <ul class="nav nav-sidebar">
+      <li class="manage"><%= link_to "Manage", '#' %></li>
+      <% if current_user != nil %>
+        <li class=""><%= link_to "Manage Exam", exams_path %></li>
+        <li class=""><%= link_to "Manage Segment", segments_path %></li>
+        <li class=""><%= link_to "Manage Question", questions_path %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
