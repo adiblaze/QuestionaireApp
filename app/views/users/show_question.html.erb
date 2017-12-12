@@ -1,0 +1,55 @@
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <h1>Questions</h1>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <%= form_tag user_answer_users_path(segment_id: @questions.first.segment) do %>
+
+          <% if @errors && @errors.any? %>
+            <div id="error_explanation">
+              <h2>
+                <%#= pluralize(@errors.count, "error") %>
+                Require to attempt each question:
+              </h2>
+              <ul>
+                <% @errors.each do |msg| %>
+                  <li><%= msg %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <% @questions.each do |question| %>
+
+            <div class="field">
+              <label>Question: <%= question.question %></label>
+            </div>
+
+            <div class="option_a">
+              <%= radio_button_tag "user_answers[#{question.id}][]", "#{question.id}"%>
+              <%= question.option_a %>
+            </div>
+
+             <div class="option_b">
+              <%= radio_button_tag "user_answers[#{question.id}][]", "#{question.option_b}"%>
+              <%= question.option_b %>
+            </div>
+
+             <div class="option_c">
+              <%= radio_button_tag "user_answers[#{question.id}][]", "#{question.option_c}"%>
+              <%= question.option_c %>
+            </div>
+
+             <div class="option_d">
+              <%= radio_button_tag "user_answers[#{question.id}][]", "#{question.option_d}"%>
+              <%= question.option_d %>
+            </div>
+
+          <% end %>
+
+          <%= submit_tag "submit" , id: "submit_answer"%>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

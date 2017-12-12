@@ -10,10 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171206062604) do
+ActiveRecord::Schema.define(version: 20171212112420) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "answers", force: :cascade do |t|
+    t.string "answer"
+    t.bigint "question_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["question_id"], name: "index_answers_on_question_id"
+  end
+
+  create_table "choices", force: :cascade do |t|
+    t.bigint "question_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "option"
+    t.index ["question_id"], name: "index_choices_on_question_id"
+  end
 
   create_table "exams", force: :cascade do |t|
     t.string "title"
@@ -25,15 +41,15 @@ ActiveRecord::Schema.define(version: 20171206062604) do
 
   create_table "questions", force: :cascade do |t|
     t.text "question"
-    t.string "option_a"
-    t.string "option_b"
-    t.string "option_c"
-    t.string "option_d"
-    t.string "answer"
-    t.bigint "segment_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["segment_id"], name: "index_questions_on_segment_id"
+  end
+
+  create_table "questions_segments", id: false, force: :cascade do |t|
+    t.bigint "segment_id"
+    t.bigint "question_id"
+    t.index ["question_id"], name: "index_questions_segments_on_question_id"
+    t.index ["segment_id"], name: "index_questions_segments_on_segment_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -83,7 +99,8 @@ ActiveRecord::Schema.define(version: 20171206062604) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
+  add_foreign_key "answers", "questions"
+  add_foreign_key "choices", "questions"
   add_foreign_key "exams", "users"
-  add_foreign_key "questions", "segments"
   add_foreign_key "segments", "exams"
 end

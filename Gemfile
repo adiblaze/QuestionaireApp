@@ -19,6 +19,10 @@ gem "rolify"
 
 gem 'cancancan'
 
+gem "cocoon"
+
+gem 'rubocop', '~> 0.51.0', require: false
+
 gem 'will_paginate',           '3.1.5'
 gem 'jquery-rails'
 gem 'bootstrap-will_paginate', '1.0.0'

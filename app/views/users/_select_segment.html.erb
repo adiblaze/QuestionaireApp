@@ -1,0 +1,6 @@
+<% @segments.each do |segment| %>
+  <tr>
+    <td><%= segment.name %></td>
+    <td><%= link_to 'Start Test',  show_question_users_path(segment_id: segment.id) %></td>
+  </tr>
+<% end %>

@@ -8,6 +8,15 @@ $(document).on("click", ".deletebutton", function(url){
   });
 });
 
+$(document).on("click", ".deletelink", function(url){
+  question_id = $(this).data("id");
+  url = $(this).data("url");
+  $.ajax({
+      type: "DELETE",
+      url: url
+  });
+});
+
 $(document).on("click", ".close, .close-btn", function(){
   $('.modal-backdrop').remove();
 });

@@ -1,6 +1,8 @@
 class QuestionsController < ApplicationController
 
-  before_action :set_question, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
+  before_action :set_question, only: [:show, :edit]
+  before_action :authenticate_user!, :only => [:show, :index]
 
   def index
     @questions = Question.paginate(page: params[:page], :per_page => 1)
@@ -31,29 +33,35 @@ class QuestionsController < ApplicationController
   end
 
   def update
+    question = Question.find(params[:id])
+    @questions = Question.paginate(page: params[:page], :per_page => 1).order("created_at")
+
+    if @questions.length > 0
+
+      page = page
+      # @questions.total_pages == @questions.current_page
+
+      # redirect_to questions_path(page: @questions.current_page)
+    end
+    redirect_to questions_path(page: page)
+
     respond_to do |format|
-      if @question.update(question_params)
-        format.html { redirect_to @question, notice: 'Question was successfully updated.' }
-        format.json { render :show, status: :ok, location: @question }
+      if question.update(question_params)
+        format.js
       else
         format.html { render :edit }
-        format.json { render json: @question.errors, status: :unprocessable_entity }
       end
     end
   end
 
   def destroy
-    @question.destroy
-
+    question = Question.find(params[:id])
+    question.destroy
+    @questions = Question.paginate(page: params[:page], :per_page => 1)
     respond_to do |format|
-      format.html {redirect_to questions_url, notice: 'Question was successfully destroyed.'}
-      format.json {head :no_content}
+      format.js
     end
   end
-
-  # def option_match
-
-  # end
 
   private
 
@@ -62,6 +70,7 @@ class QuestionsController < ApplicationController
   end
 
   def question_params
-    params.require(:question).permit(:question, :option_a, :option_b, :option_c, :option_d, :answer, :segment_id)
+    #params.require(:question).permit(:question, :option_a, :option_b, :option_c, :option_d, :answer)
+    params.require(:question).permit(:question,choices_attributes: [:id, :option])
   end
 end
