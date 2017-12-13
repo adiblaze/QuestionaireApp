@@ -7,7 +7,7 @@
         <h4 class="modal-title">Edit Question</h4>
       </div>
       <div class="modal-body">
-        <%= form_for @question, remote: true do |form| %>
+        <%= form_for @question, remote: true do |f| %>
           <% if @question.errors.any? %>
             <div id="error_explanation">
               <h2><%= pluralize(@question.errors.count, "error") %> prohibited this question from being saved:</h2>
@@ -20,29 +20,44 @@
             </div>
           <% end %>
 
-          <%= form.label :question %>
-          <%= form.text_area :question, id: :question_no %>
+          <div>
+            <%= f.label :question %>
+            <%= f.text_area :question, id: :question_no %>
+          </div>
 
-          <%= form.label :Option_a %>
-          <%= form.text_field :option_a, id: :question_no %>
+          <div>
+            <p><strong>Choices:</strong></p>
 
-          <%= form.label :Option_b %>
-          <%= form.text_field :option_b, id: :question_no %>
+            <div class="choices">
+              <%= f.simple_fields_for  :choices do |choice| %>
+                <%= render 'choice_fields', f: choice%>
+              <%end%>
 
-          <%= form.label :Option_c %>
-          <%= form.text_field :option_c, id: :question_no %>
+              <div class="links">
+                <%= link_to_add_association 'add option', f, :answers %>
+              </div>
+            </div>
+          </div>
 
-          <%= form.label :Option_d %>
-          <%= form.text_field :option_d, id: :question_no %>
+          <div>
+            <p><strong>Answers:</strong></p>
 
-          <%= form.label :answer %>
-          <%= form.text_field :answer, id: :question_no %><br /><br />
+            <div class="answers">
+              <%= f.simple_fields_for  :answers do |answer| %>
+                <%= render 'answer_fields', f: answer %>
+              <%end%>
 
-          <%= form.submit %>
+              <div class="links">
+                <%= link_to_add_association 'add answer', f, :answers %>
+              </div>
+            </div>
+          </div>
+
+          <%= f.submit %>
         <% end %>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-primary"" data-dismiss="modal" aria-hidden="true" >Close</button>
+        <button class="btn btn-primary close-btn" data-dismiss="modal" aria-hidden="true" >Close</button>
       </div>
     </div>
   </div>

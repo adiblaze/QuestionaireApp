@@ -1,10 +1,10 @@
-<%= form_with(model: question, local: true) do |form| %>
-  <% if question.errors.any? %>
+<%= simple_form_for @question do |f| %>
+  <% if @question.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(question.errors.count, "error") %> prohibited this question from being saved:</h2>
+      <h2><%= pluralize(@question.errors.count, "error") %> prohibited this question from being saved:</h2>
 
       <ul>
-      <% question.errors.full_messages.each do |message| %>
+      <% @question.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
@@ -12,40 +12,42 @@
   <% end %>
 
   <div class="field">
-    <%= form.select(:segment_id, Segment.all.collect {|u| [u.name, u.id]}, :prompt => 'Select') %>
+    <%= f.label :question %>
+    <%= f.text_area :question %>
+  </div>
+  <div>
+    <p><strong>Choices:</strong></p>
+
+    <div class="choices">
+      <%@question.choices.build%>
+      <%= f.simple_fields_for  :choices do |choice| %>
+        <%= render 'choice_fields', f: choice%>
+      <%end%>
+
+      <div class="links">
+        <%= link_to_add_association 'add option', f, :choices %>
+      </div>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :question %>
-    <%= form.text_area :question, id: :question_no %>
-  </div>
+  <br />
 
-  <div class="field">
-    <%= form.label :Option_a %>
-    <%= form.text_field :option_a, id: :question_no %>
-  </div>
+  <div>
+    <p><strong>Answers:</strong></p>
 
-  <div class="field">
-    <%= form.label :Option_b %>
-    <%= form.text_field :option_b, id: :question_no %>
-  </div>
+    <div class="answers">
+      <%@question.answers.build%>
+      <%= f.simple_fields_for  :answers do |answer| %>
+        <%= render 'answer_fields', f: answer %>
+      <%end%>
 
-  <div class="field">
-    <%= form.label :Option_c %>
-    <%= form.text_field :option_c, id: :question_no %>
+      <div class="links">
+        <%= link_to_add_association 'add answer', f, :answers %>
+      </div>
+    </div>
   </div>
-
-  <div class="field">
-    <%= form.label :Option_d %>
-    <%= form.text_field :option_d, id: :question_no %>
-  </div>
-
-  <div class="field">
-    <%= form.label :answer %>
-    <%= form.text_field :answer, id: :question_no %>
-  </div>
-
   <div class="actions">
-    <%= form.submit %>
+    <%= f.submit %>
   </div>
+
 <% end %>

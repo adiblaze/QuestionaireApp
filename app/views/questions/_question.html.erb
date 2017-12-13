@@ -1,0 +1,12 @@
+<% @questions.each do |question| %>
+  <tr>
+    <td><%= question.question %></td>
+
+    <td><%= link_to 'Show', question %></td>
+
+    <td><%= link_to 'Edit', edit_question_path(question), data: {id: question.id}, remote: true, 'data-toggle' => "modal" %></td>
+
+    <td><%= link_to 'Destroy', "javascript:void(0);", :class => "deletebutton",data: {id: question.id, url: question_path(question)}%>
+    </td>
+  </tr>
+<% end %>

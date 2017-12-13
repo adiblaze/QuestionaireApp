@@ -1,0 +1,5 @@
+$('#question-edit').modal('hide');
+$('.modal-backdrop').remove();
+$(".question-names").html("<%=j render('question')%>");
+$(".my_pagination").text("");
+$(".my_pagination").append(<%= will_paginate @questions%>);

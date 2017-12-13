@@ -12,6 +12,8 @@ gem 'rails', '~> 5.1.4'
 gem 'pg', '~> 0.18'
 
 gem 'devise'
+gem 'simple_form'
+gem 'pry'
 
 gem 'bootstrap-sass'
 

@@ -1,0 +1,5 @@
+$('.questions').html("<%=j render('question')%>");
+$(".my_pagination").text("");
+<%if @questions.present?%>
+  $(".my_pagination").append(<%= will_paginate @questions%>);
+<%end%>

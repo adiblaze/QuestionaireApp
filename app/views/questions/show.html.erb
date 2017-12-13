@@ -3,17 +3,6 @@
 <p>
   <strong>Question:</strong>
   <%= @question.question %><br />
-  <strong>a:</strong>
-  <%= @question.option_a %><br />
-  <strong>b:</strong>
-  <%= @question.option_b %><br />
-  <strong>c:</strong>
-  <%= @question.option_c %><br />
-  <strong>d:</strong>
-  <%= @question.option_d %><br /><br />
-  <strong>Answer:</strong>
-  <%= @question.answer %>
 </p>
 
-<%= link_to 'Edit', edit_question_path(@question) %> |
 <%= link_to 'Back', questions_path %>
