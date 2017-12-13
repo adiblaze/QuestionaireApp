@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+    <h1>Questions To Be Select</h1>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <%= form_tag select_question_segment_path do %>
+
+          <!--<%# if @errors && @errors.any? %>
+            <div id="error_explanation">
+              <h2>
+                <%#= pluralize(@errors.count, "error") %>
+                Require to attempt each question:
+              </h2>
+              <ul>
+                <%# @errors.each do |msg| %>
+                  <li><%#= msg %></li>
+                <%# end %>
+              </ul>
+            </div>
+          <%# end %>-->
+
+          <% @questions.each do |question| %>
+            <div class="field">
+              <!-- <label>Question: <%#= question.question %></label> -->
+              <%= check_box_tag :question %><label>Question: <%= question.question %></label>
+            </div>
+          <% end %>
+
+          <%= submit_tag "Add_question" , id: "Add_question"%>
+        <% end %>
+      </div>
+    </div>
+    <%= link_to 'Back', segments_path %>
+  </div>
+</div>

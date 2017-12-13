@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   get 'segments/index'
 
   root "users#index"
-  get "/home", to: 'home#index'
+  #get "/home", to: 'home#index'
   #get "/exam_segment/:id", to: 'users#exam_segment'
 
   resources :exams
@@ -16,11 +16,12 @@ Rails.application.routes.draw do
       #get :segment_complete
     end
   end
-   # get 'users/segment_complete/:exam_id', to: "users#segment_complete", as: "users_segment_complete"
 
-  # get 'users/show_question/:segment_id', to: "users#show_question", as: "users_show_question"
-  # post 'users/:user_id/user_answer/:question_id', to: "users#user_answer", as: "user_answer"
-  resources :segments
+  resources :segments do
+    member do
+      get :select_question
+    end
+  end
   resources :questions
 
 
